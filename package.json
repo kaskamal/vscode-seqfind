@@ -17,7 +17,14 @@
 		"commands": [{
 			"command": "seqfind.search",
 			"title": "SeqFind Search"
-		}]
+		}],
+		"keybindings": [
+			{
+				"command": "seqfind.search",
+				"key": "alt+s",
+				"when": ""
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
