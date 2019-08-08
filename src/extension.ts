@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
-import { SearchItem } from './SearchItem';
+import { SearchItem } from './searchItem';
+import * as Util from './Util';
+import { showFastaPick } from "./fastaInput"; 
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -8,17 +10,29 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('seqfind.search', () => {
 
+		// Options to select file type / style to complete search for
+		const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<void> } = {
+			showFastaPick
+		};
+
 		// Pick items from list of items
-		let input = vscode.window.createQuickPick<SearchItem>();
+		const quickPick = vscode.window.createQuickPick();
+		quickPick.items = Object.keys(options).map(label => ({ label }));
 
-		input.title = "Genome Search";
-		input.placeholder = "Starting typing to search";
-
-		input.onDidHide( () => input.dispose());
-		input.show();
-
+		const editor = vscode.window.activeTextEditor;
+		if (editor !== undefined) {
+			quickPick.onDidChangeSelection(sel => {
+				if (sel[0]) {
+					options[sel[0].label](context)
+						.catch(console.error);
+				}
+			});
+			quickPick.title = "Genome Search";
+			quickPick.placeholder = "Please select ";
+			quickPick.onDidHide( () => quickPick.dispose());
+			quickPick.show();
+		}
 	});
-
 	context.subscriptions.push(disposable);
 }
 
