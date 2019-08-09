@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { SearchItem } from './searchItem';
+import { SearchItem } from './model/searchItem';
 import * as Util from './Util';
-import { showFastaPick } from "./fastaInput"; 
+import { multiStepInput } from "./fastaInput"; 
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Options to select file type / style to complete search for
 		const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<void> } = {
-			showFastaPick
+			multiStepInput
 		};
 
 		// Pick items from list of items
