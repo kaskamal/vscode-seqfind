@@ -1,6 +1,4 @@
 import * as vscode from 'vscode';
-import { SearchItem } from './model/searchItem';
-import * as Util from './Util';
 import { multiStepInput } from "./fastaInput"; 
 
 export function activate(context: vscode.ExtensionContext) {
