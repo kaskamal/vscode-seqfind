@@ -34,7 +34,7 @@ export class MultiStepInput {
             input.onDidTriggerButton(item => {
                 window.showInformationMessage(`Triggered ${item}`);
             }),
-            input.onDidChangeSelection(items => window.showInformationMessage(`Triggered ${items}`)),
+            input.onDidChangeSelection(items => window.showInformationMessage(`Triggered ${items[0].label}`)),
         );
 
         this.current = input;

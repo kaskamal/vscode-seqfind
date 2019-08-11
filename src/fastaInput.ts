@@ -8,7 +8,10 @@ export async function multiStepInput(context: ExtensionContext) {
 
     // First input items
     const resourceGroups: QuickPickItem[] = ['identical', "complement", "reverseComplement"]
-        .map(label => ({ label }));
+        .map(label => ({ 
+            label,
+            selected: false 
+        }));
 
     // Button 
     const ResourceButton = new MultiStepButton({

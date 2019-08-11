@@ -1,12 +1,12 @@
 import { QuickInputButton, Uri } from 'vscode';
 
-interface IiconPath {
+interface IconPath {
     light: Uri;
     dark: Uri;
 }
 
 export class MultiStepButton implements QuickInputButton {
     
-    constructor (public iconPath: IiconPath, public toolTip: string) { }
+    constructor (public iconPath: IconPath, public toolTip: string) { }
 
 }
