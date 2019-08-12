@@ -12,9 +12,7 @@ export class MultiStepInput {
 
     private current?: QuickInput;
 
-
-    
-    async showQuickPick({ title, step, totalSteps, items, activeItem, placeholder, buttons }: any) {
+    public async showQuickPick({ title, step, totalSteps, items, activeItem, placeholder, buttons }: any) {
         let disposables: Disposable[] = [];
 
         const input = window.createQuickPick();
@@ -34,7 +32,12 @@ export class MultiStepInput {
             input.onDidTriggerButton(item => {
                 window.showInformationMessage(`Triggered ${item}`);
             }),
-            input.onDidChangeSelection(items => window.showInformationMessage(`Triggered ${items[0].label}`)),
+            input.onDidChangeSelection(items => {
+                // if (items[0]) {
+                //     updateItemLabel(item[0]);
+                // }
+                window.showInformationMessage(`Selected ${items[0].label.slice(9)}`);
+            })
         );
 
         this.current = input;

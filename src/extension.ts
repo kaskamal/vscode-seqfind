@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { multiStepInput } from "./fastaInput"; 
+import { multiStepInput, identicalSearch, complementSearch, reverseComplement } from "./fastaInput"; 
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -10,7 +10,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Options to select file type / style to complete search for
 		const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<void> } = {
-			multiStepInput
+			multiStepInput,
+			identicalSearch,
+			complementSearch,
+			reverseComplement,
 		};
 
 		// Pick items from list of items

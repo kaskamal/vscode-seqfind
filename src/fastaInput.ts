@@ -1,16 +1,16 @@
-import { QuickPickItem, ExtensionContext, Uri } from 'vscode';
+import { QuickPickItem, ExtensionContext, Uri, window } from 'vscode';
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
+import { isValidSequence } from "./Util"
 
 
 // Multi-step input for selecting options to search query
 export async function multiStepInput(context: ExtensionContext) {
 
     // First input items
-    const resourceGroups: QuickPickItem[] = ['identical', "complement", "reverseComplement"]
+    const resourceGroups: QuickPickItem[] = ['Identical', "Complement", "Reverse Complement"]
         .map(label => ({ 
-            label,
-            selected: false 
+            label: `$(beaker) ${label}`
         }));
 
     // Button 
@@ -33,6 +33,34 @@ export async function multiStepInput(context: ExtensionContext) {
     const state = {} as Partial<State>;
     selectResourceGroup(new MultiStepInput, state);
     
+}
 
 
+export async function identicalSearch() {
+    const sequence: string | undefined = await window.showInputBox({
+        value: '',
+        placeHolder: 'Input sequence to search for...',
+        validateInput: isValidSequence
+    });
+    window.showInformationMessage(`Got: ${sequence}`);
+}
+
+
+export async function complementSearch() {
+    const sequence: string | undefined = await window.showInputBox({
+        value: '',
+        placeHolder: 'Input sequence to search for complements',
+        validateInput: isValidSequence
+    });
+    window.showInformationMessage(`Got ${sequence}`);
+
+}
+
+export async function reverseComplement() {
+    const sequence: string | undefined = await window.showInputBox({
+        value: '',
+        placeHolder: 'Input sequence to search for complements',
+        validateInput: isValidSequence
+    });
+    window.showInformationMessage(`Got ${sequence}`);
 }
