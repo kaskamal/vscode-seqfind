@@ -1,8 +1,8 @@
-import { QuickPickItem, ExtensionContext, Uri, window } from 'vscode';
+import { QuickPickItem, ExtensionContext, Uri, window, IndentAction } from 'vscode';
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
 import { isValidSequence } from "./Util"
-import { IdenticalDetect. SequenceDetect } from "./model/sequenceDetection/sequenceDetect";
+import { IdenticalDetect. SequenceDetect, ComplementDetect, ReverseComplementDetect } from "./model/sequenceDetection/sequenceDetect";
 
 
 // Multi-step input for selecting options to search query
@@ -42,7 +42,7 @@ export async function identicalSearch() {
         placeHolder: 'Input sequence to search for...',
         validateInput: isValidSequence
     });
-    findMatchingSequences(sequence);
+    findMatchingSequences(sequence, "identical");
 }
 
 export async function complementSearch() {
@@ -51,7 +51,7 @@ export async function complementSearch() {
         placeHolder: 'Input sequence to search for complements',
         validateInput: isValidSequence
     });
-    findMatchingSequences(sequence);
+    findMatchingSequences(sequence, "complement");
 }
 
 export async function reverseComplement() {
@@ -60,11 +60,18 @@ export async function reverseComplement() {
         placeHolder: 'Input sequence to search for complements',
         validateInput: isValidSequence
     });
-    findMatchingSequences(sequence);
+    findMatchingSequences(sequence, "reverseComplement");
 }
 
-function findMatchingSequences(seq: string | undefined) {
-    const sequenceDetect: SequenceDetect = new IdenticalDetect();
+const sequenceTypes: {[key: string]: any} = {
+    "identical": IdenticalDetect,
+    "complement": ComplementDetect,
+    "reverseComplement": ReverseComplementDetect
+};
+
+
+function findMatchingSequences(seq: string | undefined, type: string) {
+    const sequenceDetect: SequenceDetect = new sequenceTypes[type]();
     if (typeof seq == 'string') {
         sequenceDetect.decorateMatches(seq);    
     }
