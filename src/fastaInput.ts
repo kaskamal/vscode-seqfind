@@ -2,6 +2,7 @@ import { QuickPickItem, ExtensionContext, Uri, window } from 'vscode';
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
 import { isValidSequence } from "./Util"
+import { IdenticalDetect. SequenceDetect } from "./model/sequenceDetection/sequenceDetect";
 
 
 // Multi-step input for selecting options to search query
@@ -35,16 +36,14 @@ export async function multiStepInput(context: ExtensionContext) {
     
 }
 
-
 export async function identicalSearch() {
     const sequence: string | undefined = await window.showInputBox({
         value: '',
         placeHolder: 'Input sequence to search for...',
         validateInput: isValidSequence
     });
-    window.showInformationMessage(`Got: ${sequence}`);
+    findMatchingSequences(sequence);
 }
-
 
 export async function complementSearch() {
     const sequence: string | undefined = await window.showInputBox({
@@ -52,8 +51,7 @@ export async function complementSearch() {
         placeHolder: 'Input sequence to search for complements',
         validateInput: isValidSequence
     });
-    window.showInformationMessage(`Got ${sequence}`);
-
+    findMatchingSequences(sequence);
 }
 
 export async function reverseComplement() {
@@ -62,5 +60,12 @@ export async function reverseComplement() {
         placeHolder: 'Input sequence to search for complements',
         validateInput: isValidSequence
     });
-    window.showInformationMessage(`Got ${sequence}`);
+    findMatchingSequences(sequence);
+}
+
+function findMatchingSequences(seq: string | undefined) {
+    const sequenceDetect: SequenceDetect = new IdenticalDetect();
+    if (typeof seq == 'string') {
+        sequenceDetect.decorateMatches(seq);    
+    }
 }
