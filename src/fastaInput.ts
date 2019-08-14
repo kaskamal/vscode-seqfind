@@ -2,7 +2,7 @@ import { QuickPickItem, ExtensionContext, Uri, window, IndentAction } from 'vsco
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
 import { isValidSequence } from "./Util"
-import { IdenticalDetect. SequenceDetect, ComplementDetect, ReverseComplementDetect } from "./model/sequenceDetection/sequenceDetect";
+import { IdenticalDetect, SequenceDetect, ComplementDetect, ReverseComplementDetect } from "./model/sequenceDetection/sequenceDetect";
 
 
 // Multi-step input for selecting options to search query

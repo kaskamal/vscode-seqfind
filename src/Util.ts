@@ -1,20 +1,6 @@
 const NUCLEOTIDES = ["C", "G", "A", "T"];
 enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 
-const FastaExtenstion = [
-     "fasta",
-     "fa"
- ];
-
-// Determine whether file extension is valid
-export function isFastaFile(filename: string): boolean {
-    const ext = filename.split('.').pop();
-    if (ext === undefined) {
-        return false;
-    }
-    return FastaExtenstion.includes(ext);
-}
-
 // Determines whether input sequence is valid
 export function isValidSequence(seq: string): string | undefined {
     let incorrectNucs: Array<string> = [];
