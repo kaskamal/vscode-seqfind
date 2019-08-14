@@ -27,25 +27,25 @@
             "id": "seqfind.identicalBorder",
             "description": "Border color for identical sequence matches",
             "defaults": {
-                "dark": "#00f81555",
-                "light": "#00f81555",
-                "highContrast": "#00f81555"
+                "dark": "#00f815",
+                "light": "#00f815",
+                "highContrast": "#00f815"
             }
         }, {
             "id": "seqfind.complementBorder",
             "description": "Border color for complement sequence matches",
             "defaults": {
-                "dark": "#009df855",
-                "light": "#009df855",
-                "highContrast": "#009df855"
+                "dark": "#009df8",
+                "light": "#009df8",
+                "highContrast": "#009df8"
             }
         }, {
             "id": "seqfind.reverseComplementBorder",
             "description": "Border color for reverse complement sequence matches",
             "defaults": {
-                "dark": "#f8250055",
-                "light": "#f8250055",
-                "highContrast": "#f8250055"
+                "dark": "#f82500",
+                "light": "#f82500",
+                "highContrast": "#f82500"
             }
         }]
     },
