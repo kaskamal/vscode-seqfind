@@ -16,7 +16,8 @@
     "contributes": {
         "commands": [{
             "command": "seqfind.search",
-            "title": "SeqFind Search"
+            "category": "SeqFind",
+            "title": "Search"
         }],
         "keybindings": [{
             "command": "seqfind.search",
