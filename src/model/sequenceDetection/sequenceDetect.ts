@@ -1,5 +1,5 @@
 import { window, TextEditorDecorationType, OverviewRulerLane, DecorationOptions, Range } from 'vscode'
-import { convertComplement, convertReverseComplement } from '../../Util';
+import { convertComplement, convertReverseComplement } from '../../util';
 
 export abstract class SequenceDetect {
 
@@ -9,9 +9,9 @@ export abstract class SequenceDetect {
         const decorationType: TextEditorDecorationType = window.createTextEditorDecorationType({
             borderWidth: '3px',
             borderStyle: 'solid',
+            borderColor: { id },
             overviewRulerColor: { id },
-            overviewRulerLane: OverviewRulerLane.Right,
-            borderColor: { id }
+            overviewRulerLane: OverviewRulerLane.Right
         });
         return decorationType
     }

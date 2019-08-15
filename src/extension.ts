@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { multiStepInput, identicalSearch, complementSearch, reverseComplement } from "./fastaInput"; 
+import { multiStepInput, identicalSearch, complementSearch, reverseComplement } from "./searchManager"; 
 
 export function activate(context: vscode.ExtensionContext) {
 

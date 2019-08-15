@@ -5,7 +5,7 @@ enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 export function isValidSequence(seq: string): string | undefined {
     let incorrectNucs: Array<string> = [];
     seq.split('').forEach(elm => {
-        if (!NUCLEOTIDES.includes(elm)) {
+        if (!(NUCLEOTIDES.includes(elm.toUpperCase()) || NUCLEOTIDES.includes(elm.toLowerCase()))) {
             incorrectNucs.push(elm);
         }
     })

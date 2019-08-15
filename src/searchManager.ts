@@ -1,7 +1,7 @@
 import { QuickPickItem, ExtensionContext, Uri, window, IndentAction } from 'vscode';
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
-import { isValidSequence } from "./Util"
+import { isValidSequence } from "./util"
 import { IdenticalDetect, SequenceDetect, ComplementDetect, ReverseComplementDetect } from "./model/sequenceDetection/sequenceDetect";
 
 
