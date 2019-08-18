@@ -1,22 +1,18 @@
-import { window, TextEditorDecorationType, OverviewRulerLane, DecorationOptions, Range } from 'vscode'
+import { window, TextEditorDecorationType, OverviewRulerLane, DecorationOptions, Range, Disposable } from 'vscode';
 import { convertComplement, convertReverseComplement } from '../../util';
 
 export abstract class SequenceDetect {
 
-    abstract decorateMatches(seq: string): void;
+    abstract decorationType: TextEditorDecorationType;
+    abstract convertSequence(seq: string): string;
 
-    createDecorationType(id: string): TextEditorDecorationType {
-        const decorationType: TextEditorDecorationType = window.createTextEditorDecorationType({
-            borderWidth: '3px',
-            borderStyle: 'solid',
-            borderColor: { id },
-            overviewRulerColor: { id },
-            overviewRulerLane: OverviewRulerLane.Right
-        });
-        return decorationType 
-    }
+    protected decorationStyle: {borderWidth: string, borderStyle: string, overviewRulerLane: OverviewRulerLane} = {
+        borderWidth: '3px',
+        borderStyle: 'solid',
+        overviewRulerLane: OverviewRulerLane.Right
+    };
 
-    drawDecorations(querySeq: string, decorationType: TextEditorDecorationType) {
+    drawDecorations(querySeq: string) {
         const activeEditor = window.activeTextEditor;
 
         if (!activeEditor) {
@@ -31,32 +27,52 @@ export abstract class SequenceDetect {
 			const endPos = activeEditor.document.positionAt(match.index + match[0].length);
 			const decoration = { range: new Range(startPos, endPos), hoverMessage: 'Match' };
 			decorationList.push(decoration);
-		}
-		activeEditor.setDecorations(decorationType, decorationList);
+        }
+		activeEditor.setDecorations(this.decorationType, decorationList);
+    }
+
+    public decorateMatches(seq: string): void {
+        this.drawDecorations(this.convertSequence(seq));
+    }
+
+    dispose() {
+        this.decorationType.dispose();
     }
 }
 
 export class IdenticalDetect extends SequenceDetect {
 
-    public decorateMatches(seq: string): void {
-        const identicalDecorationType = this.createDecorationType('seqfind.identicalBorder'); 
-        this.drawDecorations(seq, identicalDecorationType);
-    }   
+    private id: string = 'seqfind.identicalBorder';
+    decorationType = window.createTextEditorDecorationType({
+        borderColor: { id: this.id },
+        overviewRulerColor: { id: this.id },
+        ... this.decorationStyle,
+    });
+
+    convertSequence(seq: string): string { return seq };
 }
 
 
 export class ComplementDetect extends SequenceDetect {
 
-    public decorateMatches(seq: string): void {
-        const identicalDecorationType = this.createDecorationType('seqfind.complementBorder'); 
-        this.drawDecorations(convertComplement(seq), identicalDecorationType);
-    }
+    private id: string = 'seqfind.complementBorder';
+    decorationType = window.createTextEditorDecorationType({
+        borderColor: { id: this.id },
+        overviewRulerColor: { id: this.id },
+        ... super.decorationStyle,
+    });
+
+    convertSequence(seq: string): string { return convertComplement(seq) };
 }
 
 export class ReverseComplementDetect extends SequenceDetect {
 
-    public decorateMatches(seq: string): void {
-        const identicalDecorationType = this.createDecorationType('seqfind.reverseComplementBorder'); 
-        this.drawDecorations(convertReverseComplement(seq), identicalDecorationType);
-    }
+    private id: string = 'seqfind.reverseComplementBorder';
+    decorationType = window.createTextEditorDecorationType({
+        borderColor: { id: this.id },
+        overviewRulerColor: { id: this.id },
+        ... super.decorationStyle,
+    });
+
+    convertSequence(seq: string): string { return convertReverseComplement(seq) };
 }
