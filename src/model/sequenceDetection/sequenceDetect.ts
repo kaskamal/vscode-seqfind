@@ -13,7 +13,7 @@ export abstract class SequenceDetect {
             overviewRulerColor: { id },
             overviewRulerLane: OverviewRulerLane.Right
         });
-        return decorationType
+        return decorationType 
     }
 
     drawDecorations(querySeq: string, decorationType: TextEditorDecorationType) {

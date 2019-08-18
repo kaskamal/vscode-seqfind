@@ -1,7 +1,7 @@
-import { QuickPickItem, ExtensionContext, Uri, window, IndentAction } from 'vscode';
+import { QuickPickItem, ExtensionContext, Uri, window, IndentAction, InputBoxOptions, InputBox } from 'vscode';
 import { MultiStepButton } from "./model/multistep/multiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
-import { isValidSequence } from "./util"
+import { isValidSequence, validateInput } from "./util"
 import { IdenticalDetect, SequenceDetect, ComplementDetect, ReverseComplementDetect } from "./model/sequenceDetection/sequenceDetect";
 
 
@@ -33,34 +33,21 @@ export async function multiStepInput(context: ExtensionContext) {
 
     const state = {} as Partial<State>;
     selectResourceGroup(new MultiStepInput, state);
-    
 }
 
-export async function identicalSearch() {
-    const sequence: string | undefined = await window.showInputBox({
-        value: '',
-        placeHolder: 'Input sequence to search for...',
-        validateInput: isValidSequence
-    });
-    findMatchingSequences(sequence, "identical");
+export async function identicalSearch(context: ExtensionContext) {
+    const inputBox = createSearchInputBox(context);
+    showSearchInputBox(inputBox, "identical");
 }
 
-export async function complementSearch() {
-    const sequence: string | undefined = await window.showInputBox({
-        value: '',
-        placeHolder: 'Input sequence to search for complements',
-        validateInput: isValidSequence
-    });
-    findMatchingSequences(sequence, "complement");
+export async function complementSearch(context: ExtensionContext) {
+    const inputBox = createSearchInputBox(context);
+    showSearchInputBox(inputBox, "complement");
 }
 
-export async function reverseComplement() {
-    const sequence: string | undefined = await window.showInputBox({
-        value: '',
-        placeHolder: 'Input sequence to search for complements',
-        validateInput: isValidSequence
-    });
-    findMatchingSequences(sequence, "reverseComplement");
+export async function reverseComplement(context: ExtensionContext) {
+    const inputBox = createSearchInputBox(context);
+    showSearchInputBox(inputBox, "reverseComplement");
 }
 
 const sequenceTypes: {[key: string]: any} = {
@@ -68,6 +55,36 @@ const sequenceTypes: {[key: string]: any} = {
     "complement": ComplementDetect,
     "reverseComplement": ReverseComplementDetect
 };
+
+
+// Display input box
+function showSearchInputBox(inputBox: InputBox, type: string) {
+    inputBox.placeholder = "Input sequence to search for...";
+    inputBox.show();
+    inputBox.onDidAccept(() => {
+        if (isValidSequence(inputBox.value.trim())) {
+            findMatchingSequences(inputBox.value.trim(), type);
+        }
+    });
+}
+
+// Generic input box for simple searches (identical, complement, & reverse complement)
+function createSearchInputBox(context: ExtensionContext): InputBox {
+    const inputBox = window.createInputBox();
+    inputBox.buttons = [
+        {
+            iconPath: Uri.file(context.asAbsolutePath('resources/dark/arrow-up.svg')),
+            tooltip: "Hide search bar"
+        }
+    ]
+    inputBox.title = "Genome Search";
+    inputBox.ignoreFocusOut = true;
+    inputBox.value = '';
+    inputBox.onDidChangeValue(e => {
+        inputBox.validationMessage = validateInput(e);
+    })
+    return inputBox;
+}
 
 
 function findMatchingSequences(seq: string | undefined, type: string) {
