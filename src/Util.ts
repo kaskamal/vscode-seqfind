@@ -2,18 +2,14 @@ const NUCLEOTIDES = ["C", "G", "A", "T"];
 enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 
 // Determines whether input sequence is valid
-export function isValidSequence(seq: string): string | undefined {
+export function isValidSequence(seq: string): boolean {
     let incorrectNucs: Array<string> = [];
     seq.split('').forEach(elm => {
         if (!(NUCLEOTIDES.includes(elm.toUpperCase()) || NUCLEOTIDES.includes(elm.toLowerCase()))) {
             incorrectNucs.push(elm);
         }
     })
-    if (incorrectNucs.length == 0) {
-        return undefined;
-    } else {
-        return `Invalid Nucleotide${incorrectNucs.length > 1 ? 's' : ''} ${incorrectNucs.join(" ")}`;
-    }
+    return incorrectNucs.length == 0;
 }
 
 export function convertComplement(seq: string): string {
