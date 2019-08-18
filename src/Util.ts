@@ -3,14 +3,33 @@ enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 
 // Determines whether input sequence is valid
 export function isValidSequence(seq: string): boolean {
+    const incorrectNucs = extractIncorrectNucs(seq);
+    return incorrectNucs.length == 0;
+}
+
+
+// Validates sequence input
+// Used by InputBox.validationMessage
+export function validateInput(seq: string): string | undefined {
+    const incorrectNucs = extractIncorrectNucs(seq);
+    if (incorrectNucs.length == 0) {
+        return undefined;
+    } else {
+        return `Invalid Nucleotide${incorrectNucs.length > 1 ? 's' : ''} ${incorrectNucs.join(" ")}`;
+    }
+}
+
+// Extract all incorrect nucleotides present in seq
+function extractIncorrectNucs(seq: string):  Array<string> {
     let incorrectNucs: Array<string> = [];
     seq.split('').forEach(elm => {
         if (!(NUCLEOTIDES.includes(elm.toUpperCase()) || NUCLEOTIDES.includes(elm.toLowerCase()))) {
             incorrectNucs.push(elm);
         }
     })
-    return incorrectNucs.length == 0;
+    return incorrectNucs;
 }
+
 
 export function convertComplement(seq: string): string {
     const sequenceArray = [...seq];
