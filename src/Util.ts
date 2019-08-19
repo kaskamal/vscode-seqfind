@@ -3,6 +3,7 @@ enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 
 // Determines whether input sequence is valid
 export function isValidSequence(seq: string): boolean {
+    if (seq == "") { return false };
     const incorrectNucs = extractIncorrectNucs(seq);
     return incorrectNucs.length == 0;
 }
@@ -23,7 +24,7 @@ export function validateInput(seq: string): string | undefined {
 function extractIncorrectNucs(seq: string):  Array<string> {
     let incorrectNucs: Array<string> = [];
     seq.split('').forEach(elm => {
-        if (!(NUCLEOTIDES.includes(elm.toUpperCase()) || NUCLEOTIDES.includes(elm.toLowerCase()))) {
+        if (!(NUCLEOTIDES.includes(elm.toUpperCase()))) {
             incorrectNucs.push(elm);
         }
     })
@@ -32,12 +33,12 @@ function extractIncorrectNucs(seq: string):  Array<string> {
 
 
 export function convertComplement(seq: string): string {
-    const sequenceArray = [...seq];
+    const sequenceArray = [...seq].map((nuc) => nuc.toUpperCase());
     return extractComplement(sequenceArray);
 }
 
 export function convertReverseComplement(seq: string): string {
-    const sequenceArray = [...seq].reverse();
+    const sequenceArray = [...seq].reverse().map((nuc) => nuc.toUpperCase());
     return extractComplement(sequenceArray);
 }
 
@@ -55,6 +56,6 @@ function sequenceValid(codons: string[]): codons is Array<keyof typeof COMPLEMEN
 }
 
 function isValidCodon(codon: string): codon is keyof typeof COMPLEMENT {
-    return codon in COMPLEMENT;
+    return  codon in COMPLEMENT;
 }
 

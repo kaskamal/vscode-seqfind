@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { multiStepInput, identicalSearch, complementSearch, reverseComplement } from "./searchManager"; 
+import { multiStepInput, identicalSearch, complementSearch, reverseComplementSearch } from "./searchManager"; 
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 			multiStepInput,
 			identicalSearch,
 			complementSearch,
-			reverseComplement,
+			reverseComplementSearch,
 		};
 
 		// Pick items from list of items

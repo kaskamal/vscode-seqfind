@@ -1,5 +1,5 @@
 import { window, TextEditorDecorationType, OverviewRulerLane, DecorationOptions, Range, Disposable } from 'vscode';
-import { convertComplement, convertReverseComplement } from '../../util';
+import { convertComplement, convertReverseComplement } from '../../Util';
 
 export abstract class SequenceDetect {
 
@@ -59,10 +59,12 @@ export class ComplementDetect extends SequenceDetect {
     decorationType = window.createTextEditorDecorationType({
         borderColor: { id: this.id },
         overviewRulerColor: { id: this.id },
-        ... super.decorationStyle,
+        ... this.decorationStyle,
     });
 
-    convertSequence(seq: string): string { return convertComplement(seq) };
+    convertSequence(seq: string): string { 
+        return convertComplement(seq) 
+    };
 }
 
 export class ReverseComplementDetect extends SequenceDetect {
@@ -71,7 +73,7 @@ export class ReverseComplementDetect extends SequenceDetect {
     decorationType = window.createTextEditorDecorationType({
         borderColor: { id: this.id },
         overviewRulerColor: { id: this.id },
-        ... super.decorationStyle,
+        ... this.decorationStyle,
     });
 
     convertSequence(seq: string): string { return convertReverseComplement(seq) };

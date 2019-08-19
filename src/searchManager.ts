@@ -1,5 +1,5 @@
 import { QuickPickItem, ExtensionContext, Uri, window, InputBox, Disposable, workspace } from 'vscode';
-import { MultiStepButton } from "./model/multistep/multiStepButton";
+import { MultiStepButton } from "./model/multistep/MultiStepButton";
 import { State, MultiStepInput } from "./model/multistep/MultiStepInput";
 import { SequenceInputBox, IdenticalInputBox, ComplementInputBox, ReverseComplementInputBox } from "./model/inputBox/sequenceInputBox";
 

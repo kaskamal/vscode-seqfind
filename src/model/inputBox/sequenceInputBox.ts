@@ -1,5 +1,5 @@
 import { ExtensionContext, InputBox, window, Uri, TextEditorDecorationType, Disposable, workspace } from "vscode";
-import { isValidSequence, validateInput } from "../../Util";
+import { isValidSequence, validateInput } from "../../util";
 import { IdenticalDetect, ComplementDetect, ReverseComplementDetect, SequenceDetect } from "../sequenceDetection/sequenceDetect";
 
 export abstract class SequenceInputBox {
