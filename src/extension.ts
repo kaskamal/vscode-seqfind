@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { multiStepInput, identicalSearch, complementSearch, reverseComplementSearch } from "./searchManager"; 
 
+
 export function activate(context: vscode.ExtensionContext) {
 
 	// Extension successfully added
@@ -9,22 +10,36 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('seqfind.search', () => {
 
 		// Options to select file type / style to complete search for
-		const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<void> } = {
-			multiStepInput,
-			identicalSearch,
-			complementSearch,
-			reverseComplementSearch,
-		};
+		const options: {name: string, func: (context: vscode.ExtensionContext) => Promise<void>}[] = [
+			{
+				name: "Multistep Input",
+				func: multiStepInput,
+			},
+			{
+				name: "Identical Search",
+				func: identicalSearch
+			},
+			{
+				name: "Complement Search",
+				func: complementSearch
+			},
+			{
+				name: "Reverse Complement Search",
+				func: reverseComplementSearch
+			}
+		];
 
 		// Pick items from list of items
 		const quickPick = vscode.window.createQuickPick();
-		quickPick.items = Object.keys(options).map(label => ({ label }));
+		quickPick.items = options.map(obj => ({ label: obj.name}));
 
 		const editor = vscode.window.activeTextEditor;
 		if (editor !== undefined) {
 			quickPick.onDidChangeSelection(sel => {
 				if (sel[0]) {
-					options[sel[0].label](context)
+					const selection: {name: string, func: (context: vscode.ExtensionContext) => Promise<void>} = 
+						options.filter(obj => obj.name === sel[0].label)[0];
+					selection.func(context)
 						.catch(console.error);
 				}
 			});
