@@ -1,7 +1,7 @@
 {
     "name": "vscode-seqfind",
     "displayName": "vscode-SeqFind",
-    "description": "NULL",
+    "description": "Robust tools for searching & comparing DNA seqeunces within a larger scaffold",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.36.0"
@@ -14,22 +14,17 @@
     ],
     "main": "./out/extension.js",
     "contributes": {
-        "commands": [
-            {
-                "command": "seqfind.search",
-                "category": "SeqFind",
-                "title": "Search"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "seqfind.search",
-                "key": "alt+s",
-                "when": ""
-            }
-        ],
-        "colors": [
-            {
+        "commands": [{
+            "command": "seqfind.search",
+            "category": "SeqFind",
+            "title": "Search"
+        }],
+        "keybindings": [{
+            "command": "seqfind.search",
+            "key": "alt+s",
+            "when": ""
+        }],
+        "colors": [{
                 "id": "seqfind.identicalBorder",
                 "description": "Border color for identical sequence matches",
                 "defaults": {
