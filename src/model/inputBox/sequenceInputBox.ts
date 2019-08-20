@@ -21,12 +21,6 @@ export abstract class SequenceInputBox {
 
     private createSearchInputBox(): InputBox {
         const inputBox = window.createInputBox();
-        inputBox.buttons = [
-            {
-                iconPath: Uri.file(this.context.asAbsolutePath('resources/dark/arrow-up.svg')),
-                tooltip: "Hide search bar"
-            }
-        ]
         inputBox.title = "Genome Search";
         inputBox.ignoreFocusOut = true;
         inputBox.value = '';
