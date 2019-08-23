@@ -1,5 +1,5 @@
 import { window, TextEditorDecorationType, OverviewRulerLane, DecorationOptions, Range, Disposable } from 'vscode';
-import { convertComplement, convertReverseComplement } from '../../Util';
+import { convertComplement, convertReverseComplement } from '../../util';
 
 export abstract class SequenceDetect {
 
