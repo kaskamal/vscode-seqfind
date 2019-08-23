@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// Options to select file type / style to complete search for
 		const options: {name: string, func: (context: vscode.ExtensionContext) => Promise<void>}[] = [
 			{
-				name: "Multistep Input",
+				name: "Multistep Input Search",
 				func: multiStepInput,
 			},
 			{
