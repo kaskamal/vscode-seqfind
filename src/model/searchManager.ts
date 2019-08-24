@@ -28,7 +28,7 @@ export async function multiStepInput(context: ExtensionContext) {
             buttons: [ResourceButton]
         });
     }
-
+ 
     const state = {} as Partial<State>;
     selectResourceGroup(new MultiStepInput, state);
 }

@@ -6,6 +6,7 @@ export abstract class SequenceInputBox {
 
     abstract sequenceDetection: SequenceDetect;
     private inputBox: InputBox;
+    abstract placeholder: string;
 
     static sequenceTypes: {[key: string]: any} = {
         "identical": IdenticalDetect,
@@ -31,10 +32,11 @@ export abstract class SequenceInputBox {
     }
 
     public show() {
-        this.inputBox.placeholder = "Input sequence to search for...";
+        this.inputBox.placeholder = this.placeholder;
         this.inputBox.show();
         let disposables: Disposable[] = []
         this.inputBox.onDidAccept(() => {
+            this.inputBox.hide();
             const valueTrim = this.inputBox.value.trim();
             if (isValidSequence(valueTrim)) {
                 disposables.push(
@@ -51,8 +53,8 @@ export abstract class SequenceInputBox {
             }
         });
         this.inputBox.onDidHide(() => { 
-            disposables.forEach((dis) => { dis.dispose() });
-            this.sequenceDetection.dispose();
+            // disposables.forEach((dis) => { dis.dispose() });
+            // this.sequenceDetection.dispose();
         });
     }
 
@@ -69,26 +71,33 @@ export abstract class SequenceInputBox {
 export class IdenticalInputBox extends SequenceInputBox {
 
     sequenceDetection = new IdenticalDetect();
+    placeholder: string;
 
     constructor(context: ExtensionContext) {
         super(context);
+        this.placeholder = "Input sequence to search for ...";
     }
 }
 
 export class ComplementInputBox extends SequenceInputBox {
 
     sequenceDetection = new ComplementDetect();
+    placeholder: string;
+
 
     constructor(context: ExtensionContext) {
         super(context);
+        this.placeholder = "Input sequence to search for complement ..."
     }
 }
 
 export class ReverseComplementInputBox extends SequenceInputBox {
 
     sequenceDetection = new ReverseComplementDetect();
+    placeholder: string;
 
     constructor(context: ExtensionContext) {
         super(context);
+        this.placeholder = "Input sequence to search for reverse complement ..."
     }
 }
