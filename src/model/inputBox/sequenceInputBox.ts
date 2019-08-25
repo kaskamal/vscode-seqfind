@@ -51,7 +51,8 @@ export abstract class SequenceInputBox {
                 this.findMatchingSequences(valueTrim);
             }
         });
-        this.inputBox.onDidHide(() => { 
+        this.inputBox.onDidHide(() => {
+            this.inputBox.dispose(); 
             disposables.forEach((dis) => { dis.dispose() });
             this.sequenceDetection.dispose();
         });
