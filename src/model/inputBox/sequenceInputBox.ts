@@ -36,7 +36,6 @@ export abstract class SequenceInputBox {
         this.inputBox.show();
         let disposables: Disposable[] = []
         this.inputBox.onDidAccept(() => {
-            this.inputBox.hide();
             const valueTrim = this.inputBox.value.trim();
             if (isValidSequence(valueTrim)) {
                 disposables.push(
@@ -53,8 +52,8 @@ export abstract class SequenceInputBox {
             }
         });
         this.inputBox.onDidHide(() => { 
-            // disposables.forEach((dis) => { dis.dispose() });
-            // this.sequenceDetection.dispose();
+            disposables.forEach((dis) => { dis.dispose() });
+            this.sequenceDetection.dispose();
         });
     }
 
