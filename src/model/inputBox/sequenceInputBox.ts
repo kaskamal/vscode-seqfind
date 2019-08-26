@@ -1,4 +1,4 @@
-import { ExtensionContext, InputBox, window, Uri, TextEditorDecorationType, Disposable, workspace } from "vscode";
+import { ExtensionContext, InputBox, window, Disposable, workspace } from "vscode";
 import { isValidSequence, validateInput } from "../../util";
 import { IdenticalDetect, ComplementDetect, ReverseComplementDetect, SequenceDetect } from "../sequenceDetection/sequenceDetect";
 
