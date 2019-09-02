@@ -1,4 +1,4 @@
-import { ExtensionContext, InputBox, window, Disposable, workspace } from "vscode";
+import { ExtensionContext, InputBox, window, Disposable, workspace, QuickInputButtons } from "vscode";
 import { isValidSequence, validateInput } from "../../util";
 import { IdenticalDetect, ComplementDetect, ReverseComplementDetect, SequenceDetect } from "../sequenceDetection/sequenceDetect";
 
@@ -31,9 +31,14 @@ export abstract class SequenceInputBox {
         return inputBox;
     }
 
-    public show() {
+    private setUpInputBox(): void {
         this.inputBox.placeholder = this.placeholder;
+        this.inputBox.buttons = [QuickInputButtons.Back];
         this.inputBox.show();
+    }
+
+    public show() {
+        this.setUpInputBox();
         let disposables: Disposable[] = []
         this.inputBox.onDidAccept(() => {
             const valueTrim = this.inputBox.value.trim();
