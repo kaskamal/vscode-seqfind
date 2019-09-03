@@ -1,4 +1,4 @@
-import { QuickPickItem, ExtensionContext, Uri, window, InputBox, Disposable, workspace } from 'vscode';
+import { QuickPickItem, ExtensionContext, Uri } from 'vscode';
 import { MultiStepButton } from "./multistep/MultiStepButton";
 import { State, MultiStepInput } from "./multistep/MultiStepInput";
 import { SequenceInputBox, IdenticalInputBox, ComplementInputBox, ReverseComplementInputBox } from "./inputBox/sequenceInputBox";
@@ -28,7 +28,7 @@ export async function multiStepInput(context: ExtensionContext) {
             buttons: [ResourceButton]
         });
     }
- 
+
     const state = {} as Partial<State>;
     selectResourceGroup(new MultiStepInput, state);
 }
