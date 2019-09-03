@@ -1,4 +1,8 @@
+
+// Accepted nucleotides 
 const NUCLEOTIDES = ["C", "G", "A", "T"];
+
+// Complement nucleotides
 enum COMPLEMENT  { C = "G", A = "T", G = "C", T = "A" };
 
 // Determines whether input sequence is valid
