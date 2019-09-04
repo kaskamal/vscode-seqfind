@@ -1,7 +1,6 @@
 import { ExtensionContext, InputBox, window, Disposable, workspace, QuickInputButtons } from "vscode";
 import { isValidSequence, validateInput } from "../../util";
 import { IdenticalDetect, ComplementDetect, ReverseComplementDetect, SequenceDetect } from "../sequenceDetection/sequenceDetect";
-import { timingSafeEqual } from "crypto";
 import { startSeqFind } from "../../seqFind";
 
 export abstract class SequenceInputBox {
